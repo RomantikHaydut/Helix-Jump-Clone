@@ -6,12 +6,10 @@ public class CameraController : MonoBehaviour
 {
     private GameObject player;
     private Vector3 offSet;
-    public bool followPlayer;
     void Start()
     {
         player = GameObject.Find("Player");
         offSet = player.transform.position - transform.position;
-        followPlayer = false;
     }
 
     void LateUpdate()
@@ -21,7 +19,7 @@ public class CameraController : MonoBehaviour
 
     void Follow()
     {
-        if (followPlayer)
+        if (player.GetComponent<PlayerContoller>().falling)
         {
             transform.position = player.transform.position - offSet;
         }

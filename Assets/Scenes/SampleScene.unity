@@ -408,7 +408,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 64d19e9065d0d244f9f40be3a0dc7e43, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  followPlayer: 0
 --- !u!1 &1283180919
 GameObject:
   m_ObjectHideFlags: 0
@@ -521,7 +520,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   velocityUp: 5.5
+  falling: 0
+  immortal: 0
+  destroyer: 0
   splash: {fileID: 7291429563717050810, guid: a0efd5f8d1877e542ac8a6b24c47733f, type: 3}
+  materials:
+  - {fileID: 2100000, guid: f42586a1c614b044c860c0a18a0ae77c, type: 2}
+  - {fileID: 2100000, guid: 03a84d37469d454459d0f11113816491, type: 2}
+  - {fileID: 2100000, guid: b61dff5e4516e364084686c7e101ce0b, type: 2}
 --- !u!4 &1283180925
 Transform:
   m_ObjectHideFlags: 0
