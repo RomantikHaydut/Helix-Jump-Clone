@@ -143,7 +143,8 @@ Transform:
   m_Children:
   - {fileID: 5281014053131358603}
   - {fileID: 2703027401640100585}
-  - {fileID: 4476475379650008550}
+  - {fileID: 9184711336722810249}
+  - {fileID: 4090738576538849458}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -160,38 +161,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 5.2430086, y: 0.09168053, z: 5.028356}
   m_Center: {x: 0.007804394, y: -0.45415974, z: -0.04863286}
---- !u!1 &5155578426992601458
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 4476475379650008550}
-  m_Layer: 0
-  m_Name: Green_Platform
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &4476475379650008550
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5155578426992601458}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 9184711336722810249}
-  - {fileID: 4090738576538849458}
-  m_Father: {fileID: 4249562268044789649}
-  m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7036818684555417000
 GameObject:
   m_ObjectHideFlags: 0
@@ -310,19 +279,15 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    m_TransformParent: {fileID: 4476475379650008550}
+    m_TransformParent: {fileID: 4249562268044789649}
     m_Modifications:
-    - target: {fileID: 5621067199766559073, guid: 832e12d2eb49a9d4aa259c642042812a, type: 3}
-      propertyPath: m_IsTrigger
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 5820914402647938174, guid: 832e12d2eb49a9d4aa259c642042812a, type: 3}
       propertyPath: m_Name
       value: Platform_Green
       objectReference: {fileID: 0}
     - target: {fileID: 6856145126840972109, guid: 832e12d2eb49a9d4aa259c642042812a, type: 3}
       propertyPath: m_RootOrder
-      value: 0
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6856145126840972109, guid: 832e12d2eb49a9d4aa259c642042812a, type: 3}
       propertyPath: m_LocalPosition.x
@@ -376,19 +341,15 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    m_TransformParent: {fileID: 4476475379650008550}
+    m_TransformParent: {fileID: 4249562268044789649}
     m_Modifications:
-    - target: {fileID: 5621067199766559073, guid: 832e12d2eb49a9d4aa259c642042812a, type: 3}
-      propertyPath: m_IsTrigger
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 5820914402647938174, guid: 832e12d2eb49a9d4aa259c642042812a, type: 3}
       propertyPath: m_Name
       value: Platform_Green (1)
       objectReference: {fileID: 0}
     - target: {fileID: 6856145126840972109, guid: 832e12d2eb49a9d4aa259c642042812a, type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 6856145126840972109, guid: 832e12d2eb49a9d4aa259c642042812a, type: 3}
       propertyPath: m_LocalPosition.x

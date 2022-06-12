@@ -58,6 +58,13 @@ public class PlayerContoller : MonoBehaviour
             falling = true;
             trail.emitting = true;
             GetScore();
+            for (int i = 0; i < other.gameObject.transform.childCount; i++)
+            {
+                GameObject platform = other.gameObject.transform.GetChild(i).gameObject;
+                Rigidbody platformRb = other.gameObject.transform.GetChild(i).GetComponent<Rigidbody>();
+                Vector3 direction = (other.gameObject.transform.GetChild(i).transform.TransformDirection(other.gameObject.transform.GetChild(i).transform.right) + new Vector3(22.5f, 0, 0)).normalized;
+                DestroyRing(platform, platformRb, direction);
+            }
             Debug.Log("Triggered with ring.Score is : "+score);
         }
 
@@ -89,8 +96,8 @@ public class PlayerContoller : MonoBehaviour
         if (passedRingWithNoTouch == 0)
         {
             immortal = false; destroyer = false;
-            trail.material = gameObject.GetComponent<Renderer>().material;
             gameObject.GetComponent<Renderer>().material = materials[0];
+            trail.material = gameObject.GetComponent<Renderer>().material;
 
         }
         else if (passedRingWithNoTouch >= 2 && passedRingWithNoTouch < 3)
@@ -117,5 +124,15 @@ public class PlayerContoller : MonoBehaviour
         {
             bestScore = score;
         }
+    }
+
+    void DestroyRing(GameObject platform,Rigidbody platformRb,Vector3 forceWay)
+    {
+
+        // Here we will destroy the ring which we passed. We will add a force to them and make them transparent.
+        platformRb.useGravity = true;
+        platformRb.AddForce(forceWay*4, ForceMode.Impulse);
+        Destroy(platform.transform.parent.gameObject, 2f); // We destroy parent object , mean Ring so all platform parts will destroy.
+
     }
 }
