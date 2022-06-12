@@ -4,24 +4,28 @@ using UnityEngine;
 
 public class PlayerContoller : MonoBehaviour
 {
-    private int score;
     public int bestScore;
     private int passedRingWithNoTouch;
     public float velocityUp;
     public bool falling;
     public bool immortal;
     public bool destroyer;
+    private bool lostPoint;
 
     public GameObject splash;
+    public GameObject mainManager;
     public Material[] materials;
     public TrailRenderer trail;
     private Rigidbody rb;
+    private void Awake()
+    {
+
+    }
     void Start()
     {
-        trail.emitting = false; // trail is off when start.
-            
         rb = GetComponent<Rigidbody>();
-        score = 0;
+
+        trail.emitting = false; // trail is off when start.
         passedRingWithNoTouch = 0;
     }
     private void FixedUpdate()
@@ -29,10 +33,6 @@ public class PlayerContoller : MonoBehaviour
         SpeedProtect();  
 
     }
-    void Update()
-    {
-    }
-
 
 
     private void OnTriggerEnter(Collider other)
@@ -40,8 +40,14 @@ public class PlayerContoller : MonoBehaviour
         // We are chancing velocty when triggired with right object. By this way we prevent many bugs.
         if (other.gameObject.CompareTag("Safe Platform"))
         {
-            score--;
+            if (!lostPoint)  // Here we lose point for 1 trigger if this condition doesn't exist and if we trigger with 2 object same time we lose 2x point.
+            {
+                mainManager.GetComponent<MainManager>().AddScore(-1);
+                lostPoint = true;
+            }
+
             falling = false;
+
             trail.emitting = false;
             passedRingWithNoTouch = 0;
             rb.velocity = new Vector3(0, velocityUp, 0f);
@@ -57,7 +63,7 @@ public class PlayerContoller : MonoBehaviour
             Falling();
             falling = true;
             trail.emitting = true;
-            GetScore();
+            mainManager.GetComponent<MainManager>().AddScore(10);
             for (int i = 0; i < other.gameObject.transform.childCount; i++)
             {
                 GameObject platform = other.gameObject.transform.GetChild(i).gameObject;
@@ -65,10 +71,11 @@ public class PlayerContoller : MonoBehaviour
                 Vector3 direction = (other.gameObject.transform.GetChild(i).transform.TransformDirection(other.gameObject.transform.GetChild(i).transform.right) + new Vector3(22.5f, 0, 0)).normalized;
                 DestroyRing(platform, platformRb, direction);
             }
-            Debug.Log("Triggered with ring.Score is : "+score);
+            Debug.Log("Triggered with ring");
         }
 
     }
+
     void SpeedProtect()
     {
         // This method protect ball's speed while it is falling. We prevent overspeed.
@@ -76,6 +83,11 @@ public class PlayerContoller : MonoBehaviour
         if (rb.velocity.y<= -5)
         {
             rb.velocity = new Vector3(0, -4.5f, 0);
+        }
+        // Here we set lostPoint false for can lose point.
+        if (rb.velocity.y<0)
+        {
+            lostPoint = false;
         }
     }
 
@@ -115,15 +127,6 @@ public class PlayerContoller : MonoBehaviour
 
         }
 
-    }
-
-    void GetScore()
-    {
-        score+=10;
-        if (score>=bestScore)
-        {
-            bestScore = score;
-        }
     }
 
     void DestroyRing(GameObject platform,Rigidbody platformRb,Vector3 forceWay)

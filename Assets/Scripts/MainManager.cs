@@ -3,11 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using TMPro;
 
 public class MainManager : MonoBehaviour
 {
     public Button pauseButton;
     public Button continueButton;
+    public TextMeshProUGUI scoreText;
+    public int score;
     void Start()
     {
         
@@ -38,5 +41,11 @@ public class MainManager : MonoBehaviour
             pauseButton.gameObject.SetActive(true);
             continueButton.gameObject.SetActive(false);
         }
+    }
+
+    public void AddScore(int addingScore)
+    {
+        score += addingScore;
+        scoreText.text = "Score : " + score;
     }
 }
