@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEditor;
+using System.IO;
 
 public class GameManager : MonoBehaviour
 {
     public static int bestScore;
+    public string bestScoreOwner;
     public static GameManager gameManager;
 
     private void Awake()
@@ -28,15 +30,26 @@ public class GameManager : MonoBehaviour
         DontDestroyOnLoad(gameManager);
     }
 
+    private void Start()
+    {
+        Debug.Log(bestScore);
+    }
+
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            StartGame();
+            SaveNameAndScore("HusoBaba", 23);
+
         }
         else if (Input.GetKeyDown(KeyCode.M))
         {
-            ExitGame();
+            LoadNameAndScore();
+            Debug.Log(bestScoreOwner +bestScore);
+        }
+        else if (Input.GetKeyDown(KeyCode.N))
+        {
+            SceneManager.LoadScene(1);
         }
     }
 
@@ -49,4 +62,51 @@ public class GameManager : MonoBehaviour
     {
         EditorApplication.ExitPlaymode();
     }
+
+    [System.Serializable]
+    public class SaveData
+    {
+        // Here we made a new class as SaveData and decleared 2 variables for best score and its owner.
+        public string playerName;
+        public int score;
+    }
+
+    public void SaveNameAndScore(string player,int score) 
+    {
+        // Here we define SaveData class like data and when we want to use this method we can access playerName and score with player and best score variables.
+        SaveData data = new SaveData();
+
+        data.playerName = player;
+        data.score = score;
+
+        // Here we change our data format to .json format.
+        string json = JsonUtility.ToJson(data);
+
+        // Here need use File need System.IO library.
+        // And we WritedAllText to application.persistentDataPath pathway + savefile.json we writed "json" 
+        File.WriteAllText(Application.persistentDataPath+"savefile.json", json);
+
+    }
+
+    public void LoadNameAndScore()
+    {
+        // Here we define pathway where we save datas. And we check is there a savefile ?.
+        string path = Application.persistentDataPath + "savefile.json";
+        if (File.Exists(path))
+        {
+            // And here we are reading our text in path and we define them as json string format.
+            // And we define our SaveData class here again.
+            string json = File.ReadAllText(path);
+            SaveData data = JsonUtility.FromJson<SaveData>(json);   // Look here again !!!!!!!!!!!!!!!!!!!!
+
+            // Here we assign our variables from variables from data class.
+            bestScoreOwner = data.playerName;
+            bestScore = data.score;
+
+        }
+
+
+    }
+
+
 }
