@@ -5,13 +5,7 @@ using UnityEngine;
 public class PlatformController : MonoBehaviour
 {
     public float turnDegreePerSecond;
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         RotateThePlatform();
     }
