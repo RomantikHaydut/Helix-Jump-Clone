@@ -14,17 +14,17 @@ public class PlayerContoller : MonoBehaviour
 
     public GameObject splash;
     public GameObject mainManager;
+    private GameObject backGround;
     public Material[] materials;
     public TrailRenderer trail;
     private Rigidbody rb;
-    private void Awake()
-    {
 
-    }
+
     void Start()
     {
         rb = GetComponent<Rigidbody>();
 
+        backGround = GameObject.Find("Background");
         trail.emitting = false; // trail is off when start.
         passedRingWithNoTouch = 0;
     }
@@ -38,7 +38,7 @@ public class PlayerContoller : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         // We are chancing velocty when triggired with right object. By this way we prevent many bugs.
-        if (other.gameObject.CompareTag("Safe Platform"))
+        if (other.gameObject.tag=="Safe Platform")
         {
             if (!lostPoint)  // Here we lose point for 1 trigger if this condition doesn't exist and if we trigger with 2 object same time we lose 2x point.
             {
@@ -46,7 +46,6 @@ public class PlayerContoller : MonoBehaviour
                 rb.velocity = new Vector3(0, velocityUp, 0f);
                 lostPoint = true;
             }
-
             falling = false;
 
             trail.emitting = false;
@@ -57,10 +56,11 @@ public class PlayerContoller : MonoBehaviour
             CreateSplash(spawnPos,other.gameObject);
             Falling();
         }
-        else if (other.gameObject.CompareTag("Ring")) // add score here. and destroy the ring after pass it.
+        else if (other.gameObject.tag=="Ring") // add score here. and destroy the ring after pass it.
         {
             passedRingWithNoTouch++;
             Falling();
+            backgroundMove();
             falling = true;
             trail.emitting = true;
             mainManager.GetComponent<MainManager>().AddScore(10);
@@ -68,10 +68,15 @@ public class PlayerContoller : MonoBehaviour
             {
                 GameObject platform = other.gameObject.transform.GetChild(i).gameObject;
                 Rigidbody platformRb = other.gameObject.transform.GetChild(i).gameObject.GetComponent<Rigidbody>();
-                Vector3 direction = (other.gameObject.transform.GetChild(i).right + new Vector3(22.5f, 0, 0)).normalized;
+                Vector3 direction = (other.gameObject.transform.GetChild(i).transform.right + new Vector3(22.5f, 0, 0)).normalized;
                 DestroyRing(platform, platformRb, direction);
             }
+            other.gameObject.tag = "Passed";
             Debug.Log("Triggered with ring");
+        }
+        else if (other.gameObject.tag=="Dead Area")
+        {
+            Debug.Log("Game Over"); // Game Over scene
         }
 
     }
@@ -134,9 +139,8 @@ public class PlayerContoller : MonoBehaviour
 
         // Here we will destroy the ring which we passed. We will add a force to them and make them transparent.
         platformRb.useGravity = true;
-        platformRb.AddForce(forceWay*4, ForceMode.Impulse);
+        platformRb.AddRelativeForce(forceWay*4, ForceMode.Impulse);
         // Here we prevent trigger function while platforms are falling.
-        platform.transform.parent.gameObject.tag = "Passed";
         if (platform.GetComponent<MeshCollider>())
         {
             platform.tag = "Passed";
@@ -149,5 +153,10 @@ public class PlayerContoller : MonoBehaviour
         }
         Destroy(platform.transform.parent.gameObject, 2f);
 
+    }
+
+    void backgroundMove()
+    {
+        backGround.transform.position = new Vector3(0,transform.position.y-10, 10);
     }
 }

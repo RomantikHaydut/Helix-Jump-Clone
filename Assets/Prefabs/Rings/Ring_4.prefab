@@ -285,6 +285,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Platform_Green
       objectReference: {fileID: 0}
+    - target: {fileID: 5820914402647938174, guid: 832e12d2eb49a9d4aa259c642042812a, type: 3}
+      propertyPath: m_TagString
+      value: Dead Area
+      objectReference: {fileID: 0}
     - target: {fileID: 6856145126840972109, guid: 832e12d2eb49a9d4aa259c642042812a, type: 3}
       propertyPath: m_RootOrder
       value: 2
@@ -346,6 +350,10 @@ PrefabInstance:
     - target: {fileID: 5820914402647938174, guid: 832e12d2eb49a9d4aa259c642042812a, type: 3}
       propertyPath: m_Name
       value: Platform_Green (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5820914402647938174, guid: 832e12d2eb49a9d4aa259c642042812a, type: 3}
+      propertyPath: m_TagString
+      value: Dead Area
       objectReference: {fileID: 0}
     - target: {fileID: 6856145126840972109, guid: 832e12d2eb49a9d4aa259c642042812a, type: 3}
       propertyPath: m_RootOrder

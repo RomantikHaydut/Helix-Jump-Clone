@@ -32,9 +32,9 @@ public class SpawnManager : MonoBehaviour
         //Our condition is activeRingCount , ring count in scene if it is less or equel 10 then our method will work every second.
         while (true)
         {
-            yield return new WaitForSeconds(1);
+            yield return new WaitForSeconds(0.3f);
             int activeRingCount = GameObject.FindGameObjectsWithTag("Ring").Length;
-            if (activeRingCount <= 10)
+            if (activeRingCount <= 15)
             {
                 int index = Random.Range(0, rings.Length);
                 Vector3 spawnPos = new Vector3(0, 10 + (createdRingCount * -spawnPosDistance), 0);

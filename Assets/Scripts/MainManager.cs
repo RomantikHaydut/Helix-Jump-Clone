@@ -11,16 +11,7 @@ public class MainManager : MonoBehaviour
     public Button continueButton;
     public TextMeshProUGUI scoreText;
     public int score;
-    void Start()
-    {
-        
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
     public void BackToMenu()
     {
