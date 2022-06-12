@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEditor;
 
 public class GameManager : MonoBehaviour
 {
@@ -35,7 +36,7 @@ public class GameManager : MonoBehaviour
         }
         else if (Input.GetKeyDown(KeyCode.M))
         {
-            GoMenu();
+            ExitGame();
         }
     }
 
@@ -44,9 +45,8 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene(1);
     }
 
-    public void GoMenu()
+    public void ExitGame()
     {
-        SceneManager.LoadScene(0);
-
+        EditorApplication.ExitPlaymode();
     }
 }
