@@ -5,22 +5,23 @@ using UnityEngine;
 public class SpawnManager : MonoBehaviour
 {
     private GameObject cylinder;
+    public GameObject cylinderPrefab;
     public GameObject[] rings;
-    public float spawnPosDistance;
+    public float spawnPosDistance; 
     public int createdRingCount;
+    public int createdCylinderCount;
     void Start()
     {
         createdRingCount = 1;
+        createdCylinderCount = 1;
         cylinder = GameObject.Find("Cylinder");
         StartCoroutine(CreateRing());
+        StartCoroutine(CreateCylinder());
     }
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))   // Delete here...
-        {
-                Destroy(GameObject.FindGameObjectWithTag("Ring"));
-        }
+        
     }
 
     IEnumerator CreateRing()
@@ -43,5 +44,22 @@ public class SpawnManager : MonoBehaviour
                 createdRingCount++;
             }
         }
+    }
+
+    IEnumerator CreateCylinder()
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(1);
+            int activeCylinderCount = GameObject.FindGameObjectsWithTag("Cylinder").Length;
+            if (activeCylinderCount<=4)
+            {
+                Vector3 cylinderSpawnPos = new Vector3(0, -60 * createdCylinderCount, 0);
+                Instantiate(cylinderPrefab, cylinderSpawnPos, cylinderPrefab.transform.rotation);
+                createdCylinderCount++;
+            }
+            
+        }
+        
     }
 }

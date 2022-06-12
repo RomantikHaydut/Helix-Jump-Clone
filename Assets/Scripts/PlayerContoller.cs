@@ -43,6 +43,7 @@ public class PlayerContoller : MonoBehaviour
             if (!lostPoint)  // Here we lose point for 1 trigger if this condition doesn't exist and if we trigger with 2 object same time we lose 2x point.
             {
                 mainManager.GetComponent<MainManager>().AddScore(-1);
+                rb.velocity = new Vector3(0, velocityUp, 0f);
                 lostPoint = true;
             }
 
@@ -50,7 +51,6 @@ public class PlayerContoller : MonoBehaviour
 
             trail.emitting = false;
             passedRingWithNoTouch = 0;
-            rb.velocity = new Vector3(0, velocityUp, 0f);
 
             // spawnPos is for splash this vector3 is our triggiring position.
             Vector3 spawnPos = new Vector3(transform.position.x, other.gameObject.transform.position.y - 0.11f, transform.position.z);
@@ -67,8 +67,8 @@ public class PlayerContoller : MonoBehaviour
             for (int i = 0; i < other.gameObject.transform.childCount; i++)
             {
                 GameObject platform = other.gameObject.transform.GetChild(i).gameObject;
-                Rigidbody platformRb = other.gameObject.transform.GetChild(i).GetComponent<Rigidbody>();
-                Vector3 direction = (other.gameObject.transform.GetChild(i).transform.TransformDirection(other.gameObject.transform.GetChild(i).transform.right) + new Vector3(22.5f, 0, 0)).normalized;
+                Rigidbody platformRb = other.gameObject.transform.GetChild(i).gameObject.GetComponent<Rigidbody>();
+                Vector3 direction = (other.gameObject.transform.GetChild(i).right + new Vector3(22.5f, 0, 0)).normalized;
                 DestroyRing(platform, platformRb, direction);
             }
             Debug.Log("Triggered with ring");
@@ -135,7 +135,19 @@ public class PlayerContoller : MonoBehaviour
         // Here we will destroy the ring which we passed. We will add a force to them and make them transparent.
         platformRb.useGravity = true;
         platformRb.AddForce(forceWay*4, ForceMode.Impulse);
-        Destroy(platform.transform.parent.gameObject, 2f); // We destroy parent object , mean Ring so all platform parts will destroy.
+        // Here we prevent trigger function while platforms are falling.
+        platform.transform.parent.gameObject.tag = "Passed";
+        if (platform.GetComponent<MeshCollider>())
+        {
+            platform.tag = "Passed";
+
+        }
+        else if (platform.GetComponent<BoxCollider>())
+        {
+            platform.tag = "Passed";
+
+        }
+        Destroy(platform.transform.parent.gameObject, 2f);
 
     }
 }

@@ -941,6 +941,7 @@ MonoBehaviour:
   immortal: 0
   destroyer: 0
   splash: {fileID: 7291429563717050810, guid: a0efd5f8d1877e542ac8a6b24c47733f, type: 3}
+  mainManager: {fileID: 250243361}
   materials:
   - {fileID: 2100000, guid: f42586a1c614b044c860c0a18a0ae77c, type: 2}
   - {fileID: 2100000, guid: 03a84d37469d454459d0f11113816491, type: 2}
@@ -1124,12 +1125,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50228d9c1affaa94fb6b6b4d55a6b2d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cylinderPrefab: {fileID: 6907943936114577282, guid: ba4b69611c6dd764bbc60efc50f279b0, type: 3}
   rings:
   - {fileID: 8624191042151401337, guid: f933508e03069274a9295fc2fcbe4495, type: 3}
   - {fileID: 6964798495381198186, guid: cdf81e2bae7551e449451058975115f3, type: 3}
   - {fileID: 3202878806491063327, guid: de70fa46706fc264788e70d68696611b, type: 3}
   spawnPosDistance: 2.5
   createdRingCount: 0
+  createdCylinderCount: 0
 --- !u!1 &1603239329
 GameObject:
   m_ObjectHideFlags: 0
