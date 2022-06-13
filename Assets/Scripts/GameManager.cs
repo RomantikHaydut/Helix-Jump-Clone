@@ -7,7 +7,8 @@ using System.IO;
 public class GameManager : MonoBehaviour
 {
     public static int bestScore;
-    public string bestScoreOwner;
+    public static string bestScoreOwner;
+    public static string activePlayerName;
     public static GameManager gameManager;
 
     private void Awake()
