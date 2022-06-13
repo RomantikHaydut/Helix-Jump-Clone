@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 5202389128313794802}
   m_Layer: 0
   m_Name: Platform_Green
-  m_TagString: Untagged
+  m_TagString: Dead Area
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -91,7 +91,7 @@ MeshCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5820914402647938174}
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 4
   m_Convex: 1

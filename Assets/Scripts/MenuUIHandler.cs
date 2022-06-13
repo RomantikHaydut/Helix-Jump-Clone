@@ -45,4 +45,11 @@ public class MenuUIHandler : MonoBehaviour
         }
 
     }
+
+    public void ResetBestScore()
+    {
+        gameManager.SaveNameAndScore("-", 0);
+        gameManager.LoadNameAndScore();
+        bestScoreText.text = "Best Score is : " + GameManager.bestScore + " by : " + GameManager.bestScoreOwner;
+    }
 }

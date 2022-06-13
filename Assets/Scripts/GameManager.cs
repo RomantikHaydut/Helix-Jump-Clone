@@ -30,17 +30,6 @@ public class GameManager : MonoBehaviour
         DontDestroyOnLoad(gameManager);
     }
 
-
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            SaveNameAndScore("-", 0);
-
-        }
-
-    }
-
  
 
     [System.Serializable]
