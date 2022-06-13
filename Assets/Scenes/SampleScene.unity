@@ -402,7 +402,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ffc16702b649b914689f34f88fb50183, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  turnDegreePerSecond: 120
+  turnDegreePerSecond: 100
 --- !u!1 &638426448
 GameObject:
   m_ObjectHideFlags: 0

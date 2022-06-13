@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 using TMPro;
 
 public class MenuUIHandler : MonoBehaviour
@@ -9,6 +10,7 @@ public class MenuUIHandler : MonoBehaviour
     GameManager gameManager;
     public TextMeshProUGUI bestScoreText;
     public TextMeshProUGUI nameInputText;
+    private Button sensitivityButton;
     private void Awake()
     {
         Time.timeScale = 1;
@@ -19,6 +21,9 @@ public class MenuUIHandler : MonoBehaviour
         gameManager = GameObject.Find("Game Manager").GetComponent<GameManager>();
         gameManager.LoadNameAndScore();
         bestScoreText.text = "Best Score is : "+GameManager.bestScore+" by : "+GameManager.bestScoreOwner;
+
+        SelectSavedSensitivity();
+        
 
     }
     public void StartGame()
@@ -51,5 +56,35 @@ public class MenuUIHandler : MonoBehaviour
         gameManager.SaveNameAndScore("-", 0);
         gameManager.LoadNameAndScore();
         bestScoreText.text = "Best Score is : " + GameManager.bestScore + " by : " + GameManager.bestScoreOwner;
+    }
+
+    public void TakeSensitivity(float sensitive)
+    {
+        gameManager.SaveSensitivy(sensitive);
+        gameManager.LoadSensitivity();
+    }
+
+    public void SelectSavedSensitivity()
+    {
+        // Here we select the button which is we select before.
+        gameManager.LoadSensitivity();
+        if (GameManager.activeSensitivity == 100)
+        {
+            sensitivityButton = GameObject.Find("Sensitivy 1").GetComponent<Button>();
+            sensitivityButton.Select();
+        }
+        else if (GameManager.activeSensitivity == 140)
+        {
+            sensitivityButton = GameObject.Find("Sensitivy 2").GetComponent<Button>();
+            sensitivityButton.Select();
+
+
+        }
+        else if (GameManager.activeSensitivity == 180)
+        {
+            sensitivityButton = GameObject.Find("Sensitivy 3").GetComponent<Button>();
+            sensitivityButton.Select();
+
+        }
     }
 }

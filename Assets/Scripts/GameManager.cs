@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour
     public static string bestScoreOwner;
     public static string activePlayerName;
     public static GameManager gameManager;
+    public static float activeSensitivity;
 
     private void Awake()
     {
@@ -38,6 +39,7 @@ public class GameManager : MonoBehaviour
         // Here we made a new class as SaveData and decleared 2 variables for best score and its owner.
         public string playerName;
         public int score;
+        public float sensitivity;
     }
 
     public void SaveNameAndScore(string player,int score) 
@@ -48,6 +50,7 @@ public class GameManager : MonoBehaviour
         data.playerName = player;
         data.score = score;
 
+
         // Here we change our data format to .json format.
         string json = JsonUtility.ToJson(data);
 
@@ -55,6 +58,32 @@ public class GameManager : MonoBehaviour
         // And we WritedAllText to application.persistentDataPath pathway + savefile.json we writed "json" 
         File.WriteAllText(Application.persistentDataPath+"savefile.json", json);
 
+    }
+
+    public void SaveSensitivy(float sensitive)
+    {
+        SaveData data = new SaveData();
+
+        data.sensitivity = sensitive;
+
+        string json = JsonUtility.ToJson(data);
+
+        File.WriteAllText(Application.persistentDataPath + "savefile.json", json);
+
+    }
+
+    public void LoadSensitivity()
+    {
+        string path = Application.persistentDataPath + "savefile.json";
+
+        if (File.Exists(path))
+        {
+            string json = File.ReadAllText(path);
+            SaveData data = JsonUtility.FromJson<SaveData>(json);
+
+            activeSensitivity = data.sensitivity;
+
+        }
     }
 
     public void LoadNameAndScore()
