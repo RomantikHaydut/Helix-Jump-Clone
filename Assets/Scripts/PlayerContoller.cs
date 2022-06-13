@@ -12,6 +12,7 @@ public class PlayerContoller : MonoBehaviour
     public bool destroyer;
     private bool lostPoint;
 
+
     public GameObject splash;
     public GameObject mainManager;
     private GameObject backGround;
@@ -66,7 +67,15 @@ public class PlayerContoller : MonoBehaviour
             backgroundMove();
             falling = true;
             trail.emitting = true;
-            mainManager.GetComponent<MainManager>().AddScore(10);
+            if (destroyer)
+            {
+                mainManager.GetComponent<MainManager>().AddScore(30);
+            }
+            else if (!destroyer)
+            {
+                mainManager.GetComponent<MainManager>().AddScore(10);
+            }
+            
             for (int i = 0; i < other.gameObject.transform.childCount; i++)
             {
                 GameObject platform = other.gameObject.transform.GetChild(i).gameObject;
@@ -76,12 +85,27 @@ public class PlayerContoller : MonoBehaviour
             }
             other.gameObject.tag = "Passed";
             Destroy(other.gameObject, 2f);
-            Debug.Log("Triggered with ring");
+
         }
-        else if (other.gameObject.tag=="Dead Area")
+        else if (other.gameObject.tag== "Dead Area")
         {
-            Debug.Log("Game Over"); // Game Over scene
-            FindObjectOfType<MainManager>().gameOver = true;
+            if (!immortal)
+            {
+                FindObjectOfType<MainManager>().gameOver = true;
+            }
+            else if (immortal)
+            {
+                falling = false;
+                trail.emitting = false;
+                Vector3 spawnPos = new Vector3(transform.position.x, other.gameObject.transform.position.y - 0.11f, transform.position.z);
+                CreateSplash(spawnPos, other.gameObject);
+                passedRingWithNoTouch = 0;
+                mainManager.GetComponent<MainManager>().AddScore(-1);
+                rb.velocity = new Vector3(0, velocityUp, 0f);
+                Falling();
+                audio.Play();
+            }
+            
         }
 
     }
@@ -150,7 +174,7 @@ public class PlayerContoller : MonoBehaviour
 
         // Here we prevent trigger function while platforms are falling.
 
-        platform.tag = "Passed";
+        platform.gameObject.tag = "Passed";
 
 
     }

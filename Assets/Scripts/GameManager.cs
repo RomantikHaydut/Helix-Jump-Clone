@@ -30,27 +30,15 @@ public class GameManager : MonoBehaviour
         DontDestroyOnLoad(gameManager);
     }
 
-    private void Start()
-    {
-        Debug.Log(bestScore);
-    }
 
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            SaveNameAndScore("HusoBaba", 0);
+            SaveNameAndScore("-", 0);
 
         }
-        else if (Input.GetKeyDown(KeyCode.I))
-        {
-            LoadNameAndScore();
-            Debug.Log(bestScoreOwner +bestScore);
-        }
-        else if (Input.GetKeyDown(KeyCode.P))
-        {
-            SceneManager.LoadScene(0);
-        }
+
     }
 
  

@@ -18,7 +18,7 @@ public class MenuUIHandler : MonoBehaviour
     {
         gameManager = GameObject.Find("Game Manager").GetComponent<GameManager>();
         gameManager.LoadNameAndScore();
-        bestScoreText.text = "Best Score is : "+GameManager.bestScore+" by "+GameManager.bestScoreOwner;
+        bestScoreText.text = "Best Score is : "+GameManager.bestScore+" by : "+GameManager.bestScoreOwner;
 
     }
     public void StartGame()

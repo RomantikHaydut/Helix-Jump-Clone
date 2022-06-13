@@ -16,6 +16,7 @@ public class MainManager : MonoBehaviour
     public int score;
     public float time;
     public bool gameOver;
+    private bool timeLessThenTen;
     private GameManager gameManager;
 
     private void Start()
@@ -27,7 +28,8 @@ public class MainManager : MonoBehaviour
         gameOverText.gameObject.SetActive(false);
         restartButton.gameObject.SetActive(false);
         Time.timeScale = 1;
-        time = 61;
+        timeLessThenTen = false;
+        time = 121;
 
     }
 
@@ -35,6 +37,14 @@ public class MainManager : MonoBehaviour
     private void FixedUpdate()
     {
         time -= Time.deltaTime;
+        if (time<=10 && !timeLessThenTen)
+        {
+            timeText.color = Color.red;
+
+            StartCoroutine(TimeDanger());
+            timeLessThenTen = true;
+            
+        }
         timeText.text = (int)time + " Seconds Left";
         if (time<=0 || gameOver)
         {
@@ -43,6 +53,13 @@ public class MainManager : MonoBehaviour
             restartButton.gameObject.SetActive(true);
             scoreText.gameObject.SetActive(false);
             timeText.gameObject.SetActive(false);
+            if (score >= GameManager.bestScore)
+            {
+                GameManager.bestScore = score;
+                GameManager.bestScoreOwner = GameManager.activePlayerName;
+                gameManager.SaveNameAndScore(GameManager.bestScoreOwner, GameManager.bestScore);
+                gameManager.LoadNameAndScore();
+            }
             Time.timeScale = 0;
         }
     }
@@ -92,5 +109,17 @@ public class MainManager : MonoBehaviour
         score += addingScore;
         scoreText.text = "Score : " + score;
         
+    }
+
+    IEnumerator TimeDanger()
+    {
+        while (true)
+        {
+            timeText.CrossFadeColor(Color.red, 2f, true, true);
+            yield return new WaitForSeconds(2f);
+            timeText.CrossFadeColor(Color.black, 2f, true, true);
+            yield return new WaitForSeconds(2f);
+
+        }
     }
 }
