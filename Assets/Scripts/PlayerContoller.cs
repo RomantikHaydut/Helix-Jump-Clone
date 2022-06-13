@@ -72,6 +72,7 @@ public class PlayerContoller : MonoBehaviour
                 DestroyRing(platform, platformRb, direction);
             }
             other.gameObject.tag = "Passed";
+            Destroy(other.gameObject, 2f);
             Debug.Log("Triggered with ring");
         }
         else if (other.gameObject.tag=="Dead Area")
@@ -85,9 +86,9 @@ public class PlayerContoller : MonoBehaviour
     {
         // This method protect ball's speed while it is falling. We prevent overspeed.
 
-        if (rb.velocity.y<= -5)
+        if (rb.velocity.y<= -4.2f)
         {
-            rb.velocity = new Vector3(0, -4.5f, 0);
+            rb.velocity = new Vector3(0, -4.2f, 0);
         }
         // Here we set lostPoint false for can lose point.
         if (rb.velocity.y<0)
@@ -141,18 +142,12 @@ public class PlayerContoller : MonoBehaviour
         platformRb.useGravity = true;
         platformRb.AddRelativeForce(forceWay*4, ForceMode.Impulse);
         platformRb.AddRelativeTorque(-transform.right*5, ForceMode.Impulse);
+        platform.GetComponent<MeshRenderer>().material.color = new Color(platform.GetComponent<MeshRenderer>().material.color.r, platform.GetComponent<MeshRenderer>().material.color.g, platform.GetComponent<MeshRenderer>().material.color.b, 0.2f);
+
         // Here we prevent trigger function while platforms are falling.
-        if (platform.GetComponent<MeshCollider>())
-        {
-            platform.tag = "Passed";
 
-        }
-        else if (platform.GetComponent<BoxCollider>())
-        {
-            platform.tag = "Passed";
+        platform.tag = "Passed";
 
-        }
-        Destroy(platform.transform.parent.gameObject, 2f);
 
     }
 
