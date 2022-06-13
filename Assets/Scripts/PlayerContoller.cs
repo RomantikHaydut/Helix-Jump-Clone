@@ -140,6 +140,7 @@ public class PlayerContoller : MonoBehaviour
         // Here we will destroy the ring which we passed. We will add a force to them and make them transparent.
         platformRb.useGravity = true;
         platformRb.AddRelativeForce(forceWay*4, ForceMode.Impulse);
+        platformRb.AddRelativeTorque(-transform.right*5, ForceMode.Impulse);
         // Here we prevent trigger function while platforms are falling.
         if (platform.GetComponent<MeshCollider>())
         {
