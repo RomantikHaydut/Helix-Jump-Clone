@@ -16,9 +16,11 @@ public class MainManager : MonoBehaviour
     public int score;
     public float time;
     public bool gameOver;
+    private GameManager gameManager;
 
     private void Start()
     {
+        gameManager = GameObject.Find("Game Manager").GetComponent<GameManager>();
         gameOver = false;
         scoreText.gameObject.SetActive(true);
         timeText.gameObject.SetActive(true);
@@ -28,11 +30,7 @@ public class MainManager : MonoBehaviour
         time = 61;
 
     }
-    public void BackToMenu()
-    {
-        Time.timeScale = 1;
-        SceneManager.LoadScene(0);
-    }
+
 
     private void FixedUpdate()
     {
@@ -47,6 +45,19 @@ public class MainManager : MonoBehaviour
             timeText.gameObject.SetActive(false);
             Time.timeScale = 0;
         }
+    }
+
+    public void BackToMenu()
+    {
+        if (score >= GameManager.bestScore)
+        {
+            GameManager.bestScore = score;
+            GameManager.bestScoreOwner = GameManager.activePlayerName;
+            gameManager.SaveNameAndScore(GameManager.bestScoreOwner, GameManager.bestScore);
+            gameManager.LoadNameAndScore();
+        }
+        Time.timeScale = 1;
+        SceneManager.LoadScene(0);
     }
     public void PauseGame()
     {
@@ -66,6 +77,13 @@ public class MainManager : MonoBehaviour
 
     public void RestartLevel()
     {
+        if (score >= GameManager.bestScore)
+        {
+            GameManager.bestScore = score;
+            GameManager.bestScoreOwner = GameManager.activePlayerName;
+            gameManager.SaveNameAndScore(GameManager.bestScoreOwner, GameManager.bestScore);
+            gameManager.LoadNameAndScore();
+        }
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
@@ -73,5 +91,6 @@ public class MainManager : MonoBehaviour
     {
         score += addingScore;
         scoreText.text = "Score : " + score;
+        
     }
 }

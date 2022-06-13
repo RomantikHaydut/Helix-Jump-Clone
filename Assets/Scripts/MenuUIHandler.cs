@@ -23,6 +23,7 @@ public class MenuUIHandler : MonoBehaviour
     }
     public void StartGame()
     {
+        TakePlayerName();
         SceneManager.LoadScene(1);
     }
 
@@ -33,6 +34,15 @@ public class MenuUIHandler : MonoBehaviour
 
     public void TakePlayerName()
     {
-        GameManager.activePlayerName=nameInputText.text;
+        // Here we check player entered a name to input field. If there is no name we assign to activePlayerName "Player Unknown"
+        if (nameInputText.text.Length == 1)
+        {
+            GameManager.activePlayerName = "Player Unknown";
+        }
+        else
+        {
+            GameManager.activePlayerName = nameInputText.text;
+        }
+
     }
 }

@@ -39,15 +39,15 @@ public class GameManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            SaveNameAndScore("HusoBaba", 23);
+            SaveNameAndScore("HusoBaba", 0);
 
         }
-        else if (Input.GetKeyDown(KeyCode.M))
+        else if (Input.GetKeyDown(KeyCode.I))
         {
             LoadNameAndScore();
             Debug.Log(bestScoreOwner +bestScore);
         }
-        else if (Input.GetKeyDown(KeyCode.N))
+        else if (Input.GetKeyDown(KeyCode.P))
         {
             SceneManager.LoadScene(0);
         }
