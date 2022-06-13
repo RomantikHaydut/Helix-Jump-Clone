@@ -18,6 +18,7 @@ public class PlayerContoller : MonoBehaviour
     public Material[] materials;
     public TrailRenderer trail;
     private Rigidbody rb;
+    private AudioSource audio;
 
 
     void Start()
@@ -27,6 +28,7 @@ public class PlayerContoller : MonoBehaviour
         backGround = GameObject.Find("Background");
         trail.emitting = false; // trail is off when start.
         passedRingWithNoTouch = 0;
+        audio = GetComponent<AudioSource>();
     }
     private void FixedUpdate()
     {
@@ -55,6 +57,7 @@ public class PlayerContoller : MonoBehaviour
             Vector3 spawnPos = new Vector3(transform.position.x, other.gameObject.transform.position.y - 0.11f, transform.position.z);
             CreateSplash(spawnPos,other.gameObject);
             Falling();
+            audio.Play();
         }
         else if (other.gameObject.tag=="Ring") // add score here. and destroy the ring after pass it.
         {
