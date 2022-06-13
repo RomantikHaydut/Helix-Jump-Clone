@@ -78,6 +78,7 @@ public class PlayerContoller : MonoBehaviour
         else if (other.gameObject.tag=="Dead Area")
         {
             Debug.Log("Game Over"); // Game Over scene
+            FindObjectOfType<MainManager>().gameOver = true;
         }
 
     }
