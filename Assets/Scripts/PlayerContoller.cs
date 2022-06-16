@@ -33,14 +33,15 @@ public class PlayerContoller : MonoBehaviour
     }
     private void FixedUpdate()
     {
-        SpeedProtect();  
+        SpeedProtect();
+
 
     }
-
 
     private void OnTriggerEnter(Collider other)
     {
         // We are chancing velocty when triggired with right object. By this way we prevent many bugs.
+
         if (other.gameObject.tag=="Safe Platform")
         {
             if (!lostPoint)  // Here we lose point for 1 trigger if this condition doesn't exist and if we trigger with 2 object same time we lose 2x point.
@@ -59,9 +60,12 @@ public class PlayerContoller : MonoBehaviour
             CreateSplash(spawnPos,other.gameObject);
             Falling();
             audioSource.Play();
+            Debug.Log(other.gameObject.name);
+
         }
-        else if (other.gameObject.tag=="Ring") // add score here. and destroy the ring after pass it.
+        if (other.gameObject.tag=="Ring") // add score here. and destroy the ring after pass it.
         {
+
             passedRingWithNoTouch++;
             Falling();
             backgroundMove();
@@ -84,6 +88,7 @@ public class PlayerContoller : MonoBehaviour
                 DestroyRing(platform, platformRb, direction);
             }
             other.gameObject.tag = "Passed";
+            Debug.Log(other.gameObject.name);
             Destroy(other.gameObject, 2f);
 
         }
@@ -173,6 +178,10 @@ public class PlayerContoller : MonoBehaviour
         platform.GetComponent<MeshRenderer>().material.color = new Color(platform.GetComponent<MeshRenderer>().material.color.r, platform.GetComponent<MeshRenderer>().material.color.g, platform.GetComponent<MeshRenderer>().material.color.b, 0.2f);
 
         // Here we prevent trigger function while platforms are falling.
+        if (platform.GetComponent<MeshCollider>())
+        {
+            platform.GetComponent<MeshCollider>().isTrigger = true;
+        }
 
         platform.gameObject.tag = "Passed";
 
